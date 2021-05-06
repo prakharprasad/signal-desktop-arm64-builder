@@ -38,13 +38,9 @@ COPY zkgroup.patch /
 # The same as above will have to happen for ringrtc once it is building
 
 # NODE
-# Goes last because docker build can't cache the tar.
-# https://nodejs.org/dist/v14.15.5/
-COPY node-v14.16.0-linux-arm64.tar.gz /opt/
-RUN mkdir -p /opt/node
-RUN cd /opt/; tar xf node-v14.16.0-linux-arm64.tar.gz
-RUN mv /opt/node-v14.16.0-linux-arm64/* /opt/node/
-ENV PATH=/opt/node/bin:$PATH
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+RUN nvm install 14.16.0
+RUN nvm use 14.16.0
 RUN npm install --global yarn
 
 #
