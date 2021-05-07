@@ -38,9 +38,10 @@ COPY zkgroup.patch /
 # The same as above will have to happen for ringrtc once it is building
 
 # NODE
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-RUN nvm install 14.16.0
-RUN nvm use 14.16.0
+RUN cd /opt/; wget https://nodejs.org/dist/v14.16.0/node-v14.16.0-linux-arm64.tar.gz
+RUN mkdir -p /opt/node
+RUN cd /opt/; tar xf node-v14.16.0-linux-arm64.tar.gz
+RUN mv /opt/node-v14.16.0-linux-arm64/* /opt/node/
+ENV PATH=/opt/node/bin:$PATH
 RUN npm install --global yarn
-
 #
